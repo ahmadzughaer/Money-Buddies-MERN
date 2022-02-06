@@ -1,46 +1,46 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
-const mongoose = require('mongoose');
-
-const User = require('./model/users')
+require('./config/mongoose.config');
+const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs')
+
+
+const User = require('./model/userModel');
+const { application } = require('express');
 
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-mongoose.connect('mongodb://localhost:27017/moneyBuddiesDB')
-    .then(() => console.log('Established a connection to the database'))
-    .catch(err => console.log('Something went wrong when connecting to the database ', err));
+require('./routes/user.route')(app);
+// app.use("/", (req, res, next) => {
+//     try {
+//         if (req.path == "/login" || req.path == "/register" || req.path == "/") {
+//             next();
+//         } else {
+//             /* decode jwt token if authorized*/
+//             jwt.verify(req.headers.token, 'shhhhh11111', function (err, decoded) {
+//                 if (decoded && decoded.user) {
+//                     req.user = decoded;
+//                     next();
+//                 } else {
+//                     return res.status(401).json({
+//                         errorMessage: 'User unauthorized!',
+//                         status: false
+//                     });
+//                 }
+//             })
+//         }
+//     } catch (e) {
+//         res.status(400).json({
+//             errorMessage: 'Something went wrong!',
+//             status: false
+//         });
+//     }
+// })
 
-app.post('/register', async (req, res) => {
-    try {
-        const newPassword = await bcrypt.hash(req.body.password, 8)
-        await User.create({
-            fullname: req.body.fullname,
-            email: req.body.email,
-            dateOfBirth: req.body.dateOfBirth,
-            password: newPassword,
-        })
-        res.json({ status: 'ok' })
-    } catch (err) {
-        res.json({ status: 'error', error: 'Duplicate email' })
-    }
 
-})
 
-app.get('/register', (req, res) => {
-    try {
-        res.send("hello")
-    }
-
-    catch (e) {
-        res.status(400).json({
-            errorMessage: 'Something went wrong!',
-            status: false
-        });
-    }
-})
 const port = 8000;
 
 app.listen(port, () => console.log(`Listening on port: ${port}`));

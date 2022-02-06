@@ -61,4 +61,10 @@
       bottom: 10%;
       position: relative;
   }
+
+  @media screen and (max-width: 600px) {
+    .register-box {
+      width: 60vw ;
+    }
+  }
   

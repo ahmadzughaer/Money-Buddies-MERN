@@ -29,26 +29,24 @@
   display: flex;
 }
 
-
-
 .Box-1 {
-    position: relative;
-    top: 10%;
-    left: 3%;
-    width: 50vmin;
-    height: 70vmin;
-    transform: skew(20deg);
-    background: #28445b;
-  }
-  .Box-2 {
-    position: relative;
-    top: 15%;
-    left: 8%;
-    width: 50vmin;
-    height: 70vmin;
-    transform: skew(20deg);
-    background: #28445b;
-  }
+  position: relative;
+  top: 10%;
+  left: 3%;
+  width: 50vmin;
+  height: 70vmin;
+  transform: skew(20deg);
+  background: #28445b;
+}
+.Box-2 {
+  position: relative;
+  top: 15%;
+  left: 8%;
+  width: 50vmin;
+  height: 70vmin;
+  transform: skew(20deg);
+  background: #28445b;
+}
 .Egg {
   position: relative;
   top: 4%;
@@ -85,229 +83,306 @@
   padding-top: 2%;
 }
 
-
 .balloon {
-    padding-top: 30px;
-    margin-left: 15%;
-    position: relative;
-    cursor: pointer;
-  }
-  
-  .balloon > div:before {
-    position: absolute;
-    bottom: -15px;
-    left: 52px;
-    content: "▲";
-    font-size: 1.3em;
-  }
-  
-  span {
-    font-size: 2em;
-    color: white;
-    position: relative;
-  }
-  
-  .balloon > div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 104px;
-    height: 140px;
-    border-radius: 0;
-    border-radius: 80% 80% 80% 80%;
-    margin: 0 auto;
-    position: absolute;
-    padding: 10px;
-    box-shadow: inset 17px 7px 10px #2a68a9;
-    transform-origin: bottom center;
-  }
-  
-  .balloon > div:nth-child(1) {
-    background: radial-gradient(
-      circle at 100px 100px,
-      #2a68a9,
-      #2a67a915
-    );
-    left: 0;
-    box-shadow: inset 10px 10px 10px       #2a68a9
-    ;
-    animation: balloon1 6s ease-in-out infinite;
-  }
-  
-  .balloon > div:nth-child(1):before {
-    color:       #2a68a9
-    ;
-  }
-  
-  @keyframes balloon1 {
-    0%,
-    100% {
-      transform: translateY(0) rotate(-6deg);
-    }
-    50% {
-      transform: translateY(-20px) rotate(8deg);
-    }
-  }
-  
-  .balloon > div:nth-child(2) {
-    background: radial-gradient(
-      circle at 100px 100px,
-      #2a68a9(37, 36, 36)
-      ,
-     #2a68a9
-    );
-    left: 120px;
-    box-shadow: inset 10px 10px 10px #2a68a9;
-    animation: balloon2 6s ease-in-out infinite;
-  }
-  
-  .balloon > div:nth-child(2):before {
-    color:       #5e81a7
-    ;
-  }
-  
-  @keyframes balloon2 {
-    0%,
-    100% {
-      -webkit-transform: translateY(0) rotate(6deg);
-    }
-    50% {
-      -webkit-transform: translateY(-30px) rotate(-8deg);
-    }
-  }
-  
-  .balloon > div:nth-child(3) {
-    background: radial-gradient(
-      circle at 100px 100px,
-      #2a68a9,
-      #2a68a9
-    );
-    left: 240px;
-    box-shadow: inset 10px 10px 10px #2a68a9;
-    -webkit-animation: balloon3 6s ease-in-out infinite;
-    -moz-animation: balloon3 6s ease-in-out infinite;
-    -o-animation: balloon3 6s ease-in-out infinite;
-    animation: balloon3 6s ease-in-out infinite;
-  }
-  .balloon > div:nth-child(3):before {
-    color: #2a68a9;
-  }
-  
-  @keyframes balloon3 {
-    0%,
-    100% {
-      transform: translate(0, -10px) rotate(6deg);
-    }
-    50% {
-      transform: translate(-20px, 30px) rotate(-8deg);
-    }
-  }
-  
-  .balloon .explode {
-    background: #2a68a9;
-    animation: explode 6s ease-in-out infinite;
-  }
-  
-  @keyframes explode {
-    0% {
-      transform: scale(1);
-      opacity: 1;
-    }
-    50% {
-      transform: scaleY(1.5) scaleX(0.5);
-      opacity: 0.5;
-    }
-    100% {
-      transform: scale(0);
-      opacity: 0;
-    }
-  }
+  padding-top: 30px;
+  margin-left: 15%;
+  position: relative;
+  cursor: pointer;
+}
 
-  .card-1{
-      color: #fff;
-      transform: skew(-20deg);
-      width: 90%;
-      height: 70%;
-      margin-top: 45%;
-      justify-content: center;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-  }
+.balloon > div:before {
+  position: absolute;
+  bottom: -15px;
+  left: 52px;
+  content: "▲";
+  font-size: 1.3em;
+}
 
-  .card-1 > h3 {
-      margin-right: 20%;
-      text-transform: uppercase;
-      font-weight: 500;
+span {
+  font-size: 2em;
+  color: white;
+  position: relative;
+}
+
+.balloon > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 104px;
+  height: 140px;
+  border-radius: 0;
+  border-radius: 80% 80% 80% 80%;
+  margin: 0 auto;
+  position: absolute;
+  padding: 10px;
+  box-shadow: inset 17px 7px 10px #2a68a9;
+  transform-origin: bottom center;
+}
+
+.balloon > div:nth-child(1) {
+  background: radial-gradient(circle at 100px 100px, #2a68a9, #2a67a915);
+  left: 0;
+  box-shadow: inset 10px 10px 10px #2a68a9;
+  animation: balloon1 6s ease-in-out infinite;
+}
+
+.balloon > div:nth-child(1):before {
+  color: #2a68a9;
+}
+
+@keyframes balloon1 {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-6deg);
   }
-  .card-2 {
-    color: #fff;
-    transform: skew(-20deg);
-    width: 80%;
-    height: 70%;
-    justify-content: center;
-    text-align: center;
+  50% {
+    transform: translateY(-20px) rotate(8deg);
+  }
+}
+
+.balloon > div:nth-child(2) {
+  background: radial-gradient(
+    circle at 100px 100px,
+    #2a68a9(37, 36, 36),
+    #2a68a9
+  );
+  left: 120px;
+  box-shadow: inset 10px 10px 10px #2a68a9;
+  animation: balloon2 6s ease-in-out infinite;
+}
+
+.balloon > div:nth-child(2):before {
+  color: #5e81a7;
+}
+
+@keyframes balloon2 {
+  0%,
+  100% {
+    -webkit-transform: translateY(0) rotate(6deg);
+  }
+  50% {
+    -webkit-transform: translateY(-30px) rotate(-8deg);
+  }
+}
+
+.balloon > div:nth-child(3) {
+  background: radial-gradient(circle at 100px 100px, #2a68a9, #2a68a9);
+  left: 240px;
+  box-shadow: inset 10px 10px 10px #2a68a9;
+  -webkit-animation: balloon3 6s ease-in-out infinite;
+  -moz-animation: balloon3 6s ease-in-out infinite;
+  -o-animation: balloon3 6s ease-in-out infinite;
+  animation: balloon3 6s ease-in-out infinite;
+}
+.balloon > div:nth-child(3):before {
+  color: #2a68a9;
+}
+
+@keyframes balloon3 {
+  0%,
+  100% {
+    transform: translate(0, -10px) rotate(6deg);
+  }
+  50% {
+    transform: translate(-20px, 30px) rotate(-8deg);
+  }
+}
+
+.balloon .explode {
+  background: #2a68a9;
+  animation: explode 6s ease-in-out infinite;
+}
+
+@keyframes explode {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scaleY(1.5) scaleX(0.5);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(0);
+    opacity: 0;
+  }
+}
+
+.card-1 {
+  color: #fff;
+  transform: skew(-20deg);
+  width: 90%;
+  height: 70%;
+  margin-top: 45%;
+  justify-content: center;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card-1 > h3 {
+  margin-right: 20%;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.card-2 {
+  color: #fff;
+  transform: skew(-20deg);
+  width: 80%;
+  height: 70%;
+  justify-content: center;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10%;
+}
+
+.card-2 > h3 {
+  text-transform: uppercase;
+  font-weight: 500;
+  color: #fff;
+}
+.wedding-image {
+  width: 50%;
+  height: 50vh;
+  background: url("../../Assets/images/marriage.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.business-image {
+  width: 70%;
+  height: 50vh;
+  background: url("../../Assets/images/business.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.arrow-1 {
+  width: 100px;
+  height: 30px;
+  display: flex;
+  transform: rotate(-45deg);
+}
+.arrow-1:before {
+  content: "";
+  background: currentColor;
+  width: 15px;
+  clip-path: polygon(
+    0 10px,
+    calc(100% - 15px) 10px,
+    calc(100% - 15px) 0,
+    100% 50%,
+    calc(100% - 15px) 100%,
+    calc(100% - 15px) calc(100% - 10px),
+    0 calc(100% - 10px)
+  );
+  animation: a1 1.5s infinite linear;
+}
+@keyframes a1 {
+  90%,
+  100% {
+    flex-grow: 1;
+  }
+}
+
+.arrows {
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  margin-top: 20%;
+}
+
+.between-text {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  left: 5%;
+  bottom: 3%;
+  text-align: center;
+  position: relative;
+  height: 90vh;
+  color: #2a68a9;
+}
+
+.egg-title {
+  color: #fff;
+  margin-right: 12%;
+}
+
+@media screen and (max-width: 600px) {
+  .Main {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    margin-top: 10%;
-  }
-
-  .card-2 > h3 {
-    text-transform: uppercase;
-    font-weight: 500;
-    color: #fff;
-
-  }
-  .wedding-image {
-    width: 50%;
-    height: 50vh;
-    background: url("../../Assets/images/marriage.png");
-    background-size: contain;
-    background-repeat: no-repeat;
-  }
-
-  .business-image {
-    width: 70%;
-    height: 50vh;
-    background: url("../../Assets/images/business.png");
-    background-size: contain;
-    background-repeat: no-repeat;
-  }
-
-  .arrow-1 {
-    width:100px;
-    height:30px;
-    display: flex;
-    transform: rotate(-45deg);
-  }
-  .arrow-1:before {
-    content: "";
-    background: currentColor;
-    width:15px;
-    clip-path: polygon(0 10px,calc(100% - 15px) 10px,calc(100% - 15px) 0,100% 50%,calc(100% - 15px) 100%,calc(100% - 15px) calc(100% - 10px),0 calc(100% - 10px));
-    animation: a1 1.5s infinite linear;
-  }
-  @keyframes a1 {
-    90%,100%{flex-grow: 1}
-  }
-
-  .arrows {
-    color: #fff;
-    display: flex;
     justify-content: center;
-    margin-top: 20%;
+    align-items: center;
+    padding-top: 12%;
+    height: 120vh;
+    width: 100%;
+  }
+
+  .Egg {
+    width: 80%;
+    height: 50vh;
+  }
+  .text-center {
+    position: relative;
+    bottom: 8%;
+  }
+  .create-account-link {
+    position: relative;
+    bottom: 10%;
+    font-size: small;
+    width: 50%;
+    height: 3vh;
+  }
+  .Body {
+    height: 100%;
+  }
+
+  .Box-1 {
+    position: relative;
+    top: 10%;
+    left: 1%;
+    width: 60%;
+    height: 40vh;
+    transform: skew(10deg);
+    font-size: small;
+  }
+  .balloon {
+    padding-top: 10px;
+    margin-left: 1%;
+  }
+  .card-1 {
+    margin-top: 65%;  
+  }
+  
+  .Box-2 {
+    position: relative;
+    top: 10%;
+    left: 1%;
+    width: 60%;
+    height: 40vh;
+    transform: skew(10deg);
+    font-size: small;
   }
 
   .between-text {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
     left: 5%;
-    bottom: 3%;
-    text-align: center;
-    position: relative;
-    height: 90vh;
-    color: #2a68a9;
+    top: 10%;
   }
+
+  .card-2 {
+    margin-top: 35%;  
+  }
+  .business-image {
+    width: 90%;
+    height: 20vh;
+    position: relative;
+    left: 10%;
+  }
+  
+
+}

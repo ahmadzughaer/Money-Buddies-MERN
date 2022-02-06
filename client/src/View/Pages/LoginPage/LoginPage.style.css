@@ -53,3 +53,9 @@
       color: #2a68a9;
   }
   
+  
+  @media screen and (max-width: 600px) {
+    .login-box {
+      width: 60vw ;
+    }
+  }

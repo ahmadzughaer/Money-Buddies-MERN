@@ -1,24 +1,26 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import NavBar from "../../Componenets/NavBar/NavBar.component";
+import NavBar from "../../Components/NavBar/NavBar.component";
 import "./HomePage.style.css";
 import party from "party-js";
 
 function Home() {
   const ref = useRef([]);
   let token = localStorage.getItem("token");
-  let [logButton, setLogButton] = useState("Login");
- 
-  function isLoggedIn() {
-    if(token !== null) {
-      setLogButton("Logout")
-    }
-  }
- useEffect(() => {
-  isLoggedIn()
- }, [])
+  // let [logButton, setLogButton] = useState("Login");
 
-  console.log('token',token)
+  //   function isLoggedIn() {
+  //     if(token !== null && logButton === 'Login') {
+  //       setLogButton("Logout")
+  //     }
+  //     else if( token === null  && logButton === 'Logout') {
+  //       setLogButton("Login")
+  //     }
+  //   }
+  //  useEffect(() => {
+  //   isLoggedIn()
+  //  }, [])
+
   const balloons = [
     { id: 1, color: "#2a68a9", text: "Just" },
     { id: 2, color: "#2a68a9", text: "Married" },
@@ -35,7 +37,7 @@ function Home() {
 
   return (
     <div className="Body">
-      <NavBar text={logButton} />
+      {token === null ? <NavBar text={"Logout"} /> : <NavBar text={"Login"} />}
       <div className="Main">
         <div className="Egg">
           <div className="text-title">
@@ -67,12 +69,14 @@ function Home() {
             <div className="wedding-image"></div>
           </div>
         </div>
-        <div className="between-text"><h1>OR</h1></div>
+        <div className="between-text">
+          <h1>OR</h1>
+        </div>
         <div className="Box-2">
           <div className="arrows">
-        <div className="arrow-1"></div>
             <div className="arrow-1"></div>
-            </div>
+            <div className="arrow-1"></div>
+          </div>
           <div className="card-2">
             <h3>You can save for your dream business</h3>
             <div className="business-image"></div>

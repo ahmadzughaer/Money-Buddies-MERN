@@ -124,43 +124,47 @@ function checkUserAndGenerateToken(data, req, res) {
       });
     }
   });
-
-
 }
 
-module.exports.createMoneyCircle = (req, res) => { 
-try {
-  let newMoneyCircle= new MoneyCircle({
-    creator: req.params.id,
-    amount: req.body.amount,
-    participants: [],
-    period: req.body.period,
-    monthlySettlement: req.body.monthlySettlement,
-    role: req.body.role
-  });
-  newMoneyCircle.save((err, newUser) => {
-    if (err) {
-      res.status(400).json({
-        errorMessage: err,
-        status: false
+module.exports.createMoneyCircle = (req, res) => {
+  try {
+      let newMoneyCircle = new MoneyCircle({
+        creator: req.body.email,
+        amount: req.body.amount,
+        participants: [],
+        period: req.body.period,
+        monthlySettlement: req.body.monthlySettlement,
+        role: req.body.role
       });
-    } else {
-      console.log('success')
-      res.status(200).json({
-        status: true,
-        title: 'Created Successfully.',
+      newMoneyCircle.save((err, newMoneyCircle) => {
+        if (err) {
+          res.status(400).json({
+            errorMessage: err,
+            status: false
+          });
+        } else {
+          console.log('success')
+          res.status(200).json({
+            status: true,
+            title: 'Created Successfully.',
+          });
+        }
       });
-    }
-  });
-}
-catch {
-  console.log(e)
-  res.status(400).json({
-    errorMessage: 'Something went wrong!',
-    status: false
-  });
-}
+  }
+  catch {
+    console.log(e)
+    res.status(400).json({
+      errorMessage: 'Something went wrong!',
+      status: false
+    });
+  }
 
 }
+
+module.exports.getAllMoneyCircles = (req, res) => {
+  MoneyCircle.find().sort({ created: -1 })
+    .then(allCircles => res.json(allCircles))
+    .catch(err => res.json(err))
+};
 
 

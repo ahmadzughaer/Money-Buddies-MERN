@@ -4,7 +4,7 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  background: #28445b31;
+  background: #8f9ba5fa;
 }
 
 .NavBarLink {
@@ -20,4 +20,8 @@
 .Logo {
   width: 10em;
   /* margin-top: 35%; */
+}
+
+.button_style {
+  background: #28445b !important;
 }

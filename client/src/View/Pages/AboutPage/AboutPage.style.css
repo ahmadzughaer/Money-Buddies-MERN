@@ -1,0 +1,55 @@
+
+.about-main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    row-gap: 2em;
+}
+
+.about-box {
+    width: 80%;
+    height: 80vh;
+    background: #28445b;
+    display: flex;
+}
+
+.about-text {
+    width: 50%;
+    color: #fff;
+   position: relative;
+   left: 8%;
+   top: 5%;
+}
+
+.about-paragraph {
+    text-align: left;
+    width: 80%;
+}
+
+.moneyCircle-text {
+    position: relative;
+    top: 10%;
+}
+
+.explanation-box {
+    position: relative;
+    top: 10%;
+    left: 15%;
+    font-size: large;
+    font-weight: bolder;
+    text-transform: capitalize;
+}
+
+.arrow {
+    position: relative;
+    left: 10%;
+}
+
+.about-image {
+    background: url('../../Assets/images/Money-Buddies.png');
+    width: 50%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    border: #28445b solid 2px;
+}

@@ -1,8 +1,9 @@
 const mongoose = require('mongoose')
+const Schema = mongoose.Schema;
 
 
 
-const userSchema = new mongoose.Schema(
+const userSchema = new Schema(
     {
         fullname: { type: String, required: true },
         email: { type: String, required: true, unique: true },
@@ -11,6 +12,7 @@ const userSchema = new mongoose.Schema(
         monthlyIncome: { type: Number},
         phoneNumber: { type: Number},
         password: { type: String, required: true },
+        moneyCircles: [{ type: mongoose.Types.ObjectId, ref: "MoneyCircle"}]
     }
 )
 

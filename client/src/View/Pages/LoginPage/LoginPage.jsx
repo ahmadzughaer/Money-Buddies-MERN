@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import swal from "sweetalert";
 import { Button, TextField } from "@mui/material";
 import "./LoginPage.style.css";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import logo from "../../Assets/images/logo.png";
 import { useNavigate } from "react-router-dom";
@@ -12,15 +12,12 @@ var salt = bcrypt.genSaltSync(10);
 
 export default function Login() {
   let navigate = useNavigate();
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const onEmailChange = (e) => setEmail(e.target.value);
   const onPasswordChange = (e) => setPassword(e.target.value);
-
   const login = () => {
-    // const pwd = bcrypt.hashSync(password, salt);
+
     axios
       .post("http://localhost:8000/login", {
         email: email,
@@ -28,7 +25,7 @@ export default function Login() {
       })
       .then((res) => {
         localStorage.setItem("token", res.data.token);
-        localStorage.setItem("user_id", res.data.id);
+        localStorage.setItem("user_id", res.data._id);
         navigate("/user");
       })
       .catch((err) => {

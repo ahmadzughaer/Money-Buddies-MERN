@@ -4,7 +4,7 @@ const MoneyCircle = require("../model/moneyCircleModel");
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken');
 
-
+let userId
 module.exports.createUser = async (req, res) => {
   /* register api */
   try {
@@ -65,6 +65,7 @@ module.exports.login = (req, res) => {
   try {
     if (req.body && req.body.email && req.body.password) {
       User.find({ email: req.body.email }, (err, data) => {
+        userId = data._id
         if (data.length > 0) {
           bcrypt.compare(req.body.password,
             data[0].password,
@@ -129,19 +130,22 @@ function checkUserAndGenerateToken(data, req, res) {
 module.exports.createMoneyCircle = (req, res) => {
   try {
       let newMoneyCircle = new MoneyCircle({
-        creator: req.body.email,
+        creator: req.body.creator,
         amount: req.body.amount,
         participants: [],
         period: req.body.period,
         monthlySettlement: req.body.monthlySettlement,
-        role: req.body.role
+        role: req.body.role,
+        remainingPlaces: req.body.remainingPlaces
       });
       newMoneyCircle.save((err, newMoneyCircle) => {
         if (err) {
+          console.log(err)
           res.status(400).json({
             errorMessage: err,
             status: false
           });
+          
         } else {
           console.log('success')
           res.status(200).json({

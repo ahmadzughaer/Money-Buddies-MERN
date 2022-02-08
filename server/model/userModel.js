@@ -12,7 +12,7 @@ const userSchema = new Schema(
         monthlyIncome: { type: Number},
         phoneNumber: { type: Number},
         password: { type: String, required: true },
-        moneyCircles: [{ type: mongoose.Types.ObjectId, ref: "MoneyCircle"}]
+        moneyCircles: [{ type: mongoose.Schema.Types.ObjectId, ref: 'MoneyCircle'}]
     }
 )
 

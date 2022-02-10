@@ -2,7 +2,6 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema;
 
 
-
 const userSchema = new Schema(
     {
         fullname: { type: String, required: true },
@@ -14,10 +13,8 @@ const userSchema = new Schema(
         password: { type: String, required: true },
         moneyCircles: [{ type: mongoose.Schema.Types.ObjectId, ref: 'MoneyCircle'}]
     }
-)
+)  
 
 const User = mongoose.model('User', userSchema)
- 
-
 module.exports = User
 

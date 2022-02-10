@@ -10,6 +10,7 @@
     "@fortawesome/react-fontawesome": "^0.1.17",
     "@hapi/boom": "^9.1.4",
     "@mui/material": "^5.4.0",
+    "@mui/styles": "^5.4.1",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",

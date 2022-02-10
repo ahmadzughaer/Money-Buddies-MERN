@@ -3,8 +3,7 @@ const MoneyCircle = require("../model/moneyCircleModel");
 
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken');
-
-let userId
+let newMoneyCircle
 module.exports.createUser = async (req, res) => {
   /* register api */
   try {
@@ -111,7 +110,7 @@ module.exports.login = (req, res) => {
 }
 
 function checkUserAndGenerateToken(data, req, res) {
-  jwt.sign({ user: data.fullname, email: data.email, id: data._id }, 'shhhhh11111', { expiresIn: '1d' }, (err, token) => {
+  jwt.sign({ user: data.fullname, email: data.email, id: data._id, moneyCircles: data.moneyCircles }, 'secret', { expiresIn: '1d' }, (err, token,) => {
     if (err) {
       res.status(400).json({
         status: false,
@@ -127,41 +126,69 @@ function checkUserAndGenerateToken(data, req, res) {
   });
 }
 
-module.exports.createMoneyCircle = (req, res) => {
+
+
+module.exports.createMoneyCircle =   (req, res) => {
   try {
-      let newMoneyCircle = new MoneyCircle({
-        creator: req.body.creator,
-        amount: req.body.amount,
-        participants: [],
-        period: req.body.period,
-        monthlySettlement: req.body.monthlySettlement,
-        role: req.body.role,
-        remainingPlaces: req.body.remainingPlaces
-      });
-      newMoneyCircle.save((err, newMoneyCircle) => {
-        if (err) {
-          console.log(err)
-          res.status(400).json({
-            errorMessage: err,
-            status: false
-          });
-          
-        } else {
-          console.log('success')
-          res.status(200).json({
-            status: true,
-            title: 'Created Successfully.',
-          });
-        }
-      });
+    newMoneyCircle = new MoneyCircle({
+      creator: req.body.creator,
+      amount: req.body.amount,
+      participants: [],
+      period: req.body.period,
+      monthlySettlement: req.body.monthlySettlement,
+      role: req.body.role,
+      remainingPlaces: req.body.remainingPlaces
+    });
+
+    newMoneyCircle.save((err, newMoneyCircle) => {
+      if (err) {
+        console.log(err)
+        res.status(400).json({
+          errorMessage: err,
+          status: false
+        });
+
+      } 
+      
+      else {
+        console.log('success')
+         User.findOne({ _id: newMoneyCircle.creator }, (err, data) => {
+         
+          data.moneyCircles += newMoneyCircle._id
+          data.save((user, err) => {
+            if (err) {
+        
+              console.log(err)
+            }
+            else {
+      
+              console.log('success')
+            }
+          })
+        })
+        res.status(200).json({
+          status: true,
+          title: 'Created Successfully.',
+        });
+      }
+    })
+   
   }
-  catch {
+  catch (e) {
     console.log(e)
     res.status(400).json({
       errorMessage: 'Something went wrong!',
       status: false
     });
   }
+
+}
+
+
+module.exports.getMoneyCircleById = (req, res) => {
+  MoneyCircle.findById({ _id: newMoneyCircle.creator })
+    .then(allCircles => res.json(allCircles))
+    .catch(err => res.json(err))
 
 }
 

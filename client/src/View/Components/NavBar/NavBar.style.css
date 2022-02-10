@@ -10,18 +10,39 @@
 .NavBarLink {
   text-decoration: none;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  color: #2A68A9;
+  color: #2a68a9;
   font-weight: bold;
   text-transform: uppercase;
-  /* background: rgba(255, 255, 255, 0.466); */
-  /* box-shadow: 0.1rem 0.2rem 0.4rem black; */
 }
 
 .Logo {
   width: 10em;
-  /* margin-top: 35%; */
 }
 
 .button_style {
   background: #28445b !important;
+}
+.user-links {
+  display: flex;
+  margin-right: 12%;
+  column-gap: 4em;
+  justify-content: center;
+}
+
+@media screen and (max-width: 600px) {
+  .Logo {
+    width: 8em;
+  }
+  .NavBarLink {
+    font-size: 0.7em;
+  }
+
+  .user-links {
+    display: flex;
+    margin-right: 1%;
+    column-gap: 1em;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+  }
 }

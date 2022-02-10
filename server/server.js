@@ -19,7 +19,7 @@ require('./routes/user.route')(app);
 //             next();
 //         } else {
 //             /* decode jwt token if authorized*/
-//             jwt.verify(req.headers.token, 'shhhhh11111', function (err, decoded) {
+//             jwt.verify(req.headers.token, 'secret', function (err, decoded) {
 //                 if (decoded && decoded.user) {
 //                     req.user = decoded;
 //                     next();

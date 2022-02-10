@@ -1,55 +1,84 @@
-
 .about-main {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    row-gap: 2em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 2em;
 }
 
 .about-box {
-    width: 80%;
-    height: 80vh;
-    background: #28445b;
-    display: flex;
+  width: 80%;
+  height: 80vh;
+  background: #28445b;
+  display: flex;
 }
 
 .about-text {
-    width: 50%;
-    color: #fff;
-   position: relative;
-   left: 8%;
-   top: 5%;
+  width: 50%;
+  color: #fff;
+  position: relative;
+  left: 8%;
+  top: 5%;
 }
 
 .about-paragraph {
-    text-align: left;
-    width: 80%;
+  text-align: left;
+  width: 80%;
 }
 
 .moneyCircle-text {
-    position: relative;
-    top: 10%;
+  position: relative;
+  top: 10%;
 }
 
 .explanation-box {
-    position: relative;
-    top: 10%;
-    left: 15%;
-    font-size: large;
-    font-weight: bolder;
-    text-transform: capitalize;
+  position: relative;
+  top: 10%;
+  left: 15%;
+  font-size: large;
+  font-weight: bolder;
+  text-transform: capitalize;
 }
 
 .arrow {
-    position: relative;
-    left: 10%;
+  position: relative;
+  left: 10%;
 }
 
 .about-image {
-    background: url('../../Assets/images/Money-Buddies.png');
-    width: 50%;
+  background: url("../../Assets/images/Money-Buddies.png");
+  width: 50%;
+  background-size: cover;
+  background-position: 10%;
+  background-repeat: no-repeat;
+  border: #28445b solid 2px;
+}
+
+@media screen and (max-width: 600px) {
+  .about-main {
+      width: 100%;
+    row-gap: 0em;
+  }
+  .about-box {
+    width: 100%;
+    display: flex;
+    height: 120vh;
+    flex-direction: column;
+  }
+
+  .about-text {
+    width: 100%;
+    height: 50%;
+  }
+  .about-image {
+    width: 100%;
+    height: 50%;
     background-size: contain;
+    background-position: 10%;
     background-repeat: no-repeat;
-    border: #28445b solid 2px;
+  }
+
+  .arrow {
+    transform: rotate(90deg);
+  }
 }

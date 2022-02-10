@@ -3,48 +3,62 @@ import "./NavBar.style.css";
 import logo from "../../Assets/images/logo.png";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
-function NavBar(props) {
+import jwt_decode from "jwt-decode";
+
+function NavBar() {
   let navigate = useNavigate();
-  let [token, setToken] = useState("");
   let [logButton, setLogButton] = useState("Login");
-  
-  // useEffect(() => {
-  //   token = localStorage.getItem("token")
-  //   isLoggedIn()
-  //  }, [])
-  // function isLoggedIn() {
-  //   if(token === null) {
-  //     setLogButton("Logout")
-  //   }
-  //   else if( token !== null) {
-  //     setLogButton("Login")
-  //   }
-  // }
+  let [userName, setUserName] = useState("");
+  let token = localStorage.getItem("token");
 
+  useEffect(() => {
+    isLoggedIn();
+    getUser();
+  }, []);
 
-  const logOut = () => {
-    localStorage.setItem("token", null);
-    navigate("/");
+  const isLoggedIn = () => {
+    if (token === "null" || token === null) {
+      setLogButton("Login");
+    } else {
+      setLogButton("Logout");
+    }
+  };
+  const getUser = () => {
+    if (token === "null" || token === null) {
+      return;
+    } else {
+      const decoded = jwt_decode(token);
+      setUserName(decoded.user);
+    }
   };
 
-  
+  const loginOrOut = () => {
+    if (token === "null" || token === null) {
+      navigate("/login");
+    } else {
+      localStorage.setItem("token", null);
+      window.location = "/";
+    }
+  };
 
   return (
-    <div className="NavBar" id={props.id}>
+    <div className="NavBar">
       <Link className="NavBarLink" to={"/"}>
         <img className="Logo" src={logo} alt="logo"></img>
       </Link>
-      {/* <Link className="NavBarLink" to={"/login"}>
-        {props.text}
-      </Link> */}
-           <Button
+      <div className="user-links">
+        <Link className="NavBarLink" to={"/user"}>
+          {userName}
+        </Link>
+        <Button
           className="button_style"
           variant="contained"
           size="small"
-          onClick={logOut}
+          onClick={loginOrOut}
         >
-            {props.text}
+          {logButton}
         </Button>
+      </div>
       <Link className="NavBarLink" to={"/about"}>
         About
       </Link>

@@ -1,37 +1,148 @@
 .account-main {
-    position: relative;
-    width: 90%;
-    height: 85vh;
-    border: solid black 2px;
-    left: 5%;
-    margin-top: 1%;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-    flex-direction: column;
+  position: relative;
+  width: 90%;
+  height: 85vh;
+  left: 5%;
+  margin-top: 1%;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
 }
 .Greeting {
-    display: flex;
+  display: flex;
+  background-color: #28445b;
+  color: #fff;
+  padding: 0 1% 0 1%;
 }
 
 .user-account {
-width: 90%;
-height: 80%;
-border: 1px solid black;
-display: flex;
-background: rgb(245, 240, 232);
+  width: 90%;
+  height: 80%;
+  display: flex;
+  background: #2a67a9cc;
+  color: #fff;
+  margin-top: 1%;
 }
 
 .create-moneyCircle {
-    width: 50%;
-    border: 1px solid black;
-    text-align: center;
-
+  width: 50%;
+  border-right: 3px solid #28445b;
+  text-align: center;
 }
 
 .moneyCircles-list {
-    width: 50%;
-    border: 1px solid black;
-    text-align: center;
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 10px;
+}
+.roles-box {
+  display: flex;
+  justify-content: center;
+  height: 3em;
+  column-gap: 10px;
+  font-size: large;
+}
 
+.input-label {
+  color: #fff !important;
+  position: relative !important;
+  top: 20%;
+  font-size: large !important;
+  font-weight: 700 !important;
+}
+
+.moneyCircle {
+  border: #28445b solid 2px;
+  width: 90%;
+  margin: 1%;
+  padding-bottom: 1%;
+  position: relative;
+}
+
+.moneyCircle-section {
+  width: 50%;
+  justify-content: center;
+  text-align: center;
+  border-left: 3px solid #28445b;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+}
+
+.alreadyJoined-text {
+  font-weight: 700;
+  color: #28445b;
+}
+
+::-webkit-scrollbar {
+  width: 0.8em;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f16b;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #28445b;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.moneyCircle-text {
+  height: 10%;
+}
+
+.already-create-moneyCircle {
+  width: 50%;
+  border-right: 3px solid #28445b;
+  text-align: center;
+}
+
+.already-create-moneyCircle > h1 {
+  position: relative;
+  top: 10%;
+  margin: 5%;
+}
+
+@media screen and (max-width: 600px) {
+  .user-account {
+    width: 90%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 5%;
+  }
+
+  .account-main {
+    width: 90%;
+    height: 160vh;
+  }
+
+  .create-moneyCircle {
+    width: 100%;
+    border-right: none;
+    text-align: center;
+  }
+
+  .moneyCircle-section {
+    width: 100%;
+    border: none;
+  }
+
+  .create-moneyCircle {
+    border: none;
+  }
+  .Greeting {
+  font-size: small;
+  }
+  
+  .arrow2 {
+    transform: rotate(90deg);
+  }
 }

@@ -8,7 +8,7 @@ const moneyCircleSchema = new Schema(
         participants: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
         period: { type: Number, required: true },
         monthlySettlement:  { type: Number, required: true },
-        role:  { type: Number, required: true, unique: true},
+        role:  { type: Number, required: true},
         remainingPlaces: []
     }
 )

@@ -1,26 +1,15 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef } from "react";
 import { Link } from "react-router-dom";
 import NavBar from "../../Components/NavBar/NavBar.component";
 import "./HomePage.style.css";
+
 import party from "party-js";
 
+
 function Home() {
+
   const ref = useRef([]);
-  let token = localStorage.getItem("token");
-  // let [logButton, setLogButton] = useState("Login");
-
-  //   function isLoggedIn() {
-  //     if(token !== null && logButton === 'Login') {
-  //       setLogButton("Logout")
-  //     }
-  //     else if( token === null  && logButton === 'Logout') {
-  //       setLogButton("Login")
-  //     }
-  //   }
-  //  useEffect(() => {
-  //   isLoggedIn()
-  //  }, [])
-
+  
   const balloons = [
     { id: 1, color: "#2a68a9", text: "Just" },
     { id: 2, color: "#2a68a9", text: "Married" },
@@ -37,7 +26,7 @@ function Home() {
 
   return (
     <div className="Body">
-      {token === null ? <NavBar text={"Logout"} /> : <NavBar text={"Login"} />}
+      <NavBar  />
       <div className="Main">
         <div className="Egg">
           <div className="text-title">

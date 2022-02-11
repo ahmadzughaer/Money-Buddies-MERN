@@ -5,5 +5,7 @@ module.exports = app => {
     app.post("/login", UserController.login);
     app.post("/user", UserController.createMoneyCircle);
     app.get("/user", UserController.getAllMoneyCircles);
+    app.post("/user/moneycircle", UserController.addParticipants);
+
 }
 

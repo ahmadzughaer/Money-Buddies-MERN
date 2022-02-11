@@ -38,11 +38,10 @@ export default function UserAccount() {
   const onRoleChange = (e) => setRole(e.target.value);
   let monthlySettlement = Math.ceil(amount / period);
   const [moneyCircle, setMoneyCircle] = useState([]);
-
   const [show, setShow] = useState(false);
   const [circleId, setCircleId] = useState("");
   let remainingPlaces = [];
-  let remainingPlacesArray;
+  let remainingPlacesArray, joinedMoneyCircle;
 
   const classes = useStyles();
   let token = localStorage.getItem("token");
@@ -101,6 +100,31 @@ export default function UserAccount() {
       });
   };
 
+  // update money circle participants
+
+  const updateMoneyCircleParticipants = (moneyCircleId, participantId) => {
+    if (moneyCircleId === circleId) {
+      axios
+        .post("http://localhost:8000/user/moneycircle", {
+          participants: participantId,
+          moneyCircleId: moneyCircleId,
+        })
+        .then((res) => {
+          swal({
+            text: res.data.title,
+            icon: "success",
+          });
+          setTimeout((window.location = "/user"), 3000);
+        })
+        .catch((err) => {
+          swal({
+            text: err.response.data.errorMessage,
+            icon: "error",
+          });
+          console.log(err);
+        });
+    }
+  };
   // generate roles array
   const roleSelection = () => {
     const rolesArray = [];
@@ -128,10 +152,29 @@ export default function UserAccount() {
   // on click on Join button
   const handleClick = (e) => {
     setCircleId(e.target.dataset.set);
-    console.log(e.target.dataset.set);
-    showModal();
-    // getMoneyCircle();
+    // showModal();
+    updateMoneyCircleParticipants(circleId, userId);
   };
+
+  const getAllParticipants = () => {
+    if (moneyCircle.length > 0) {
+      const participantArray = moneyCircle.map((el) => el.participants);
+      console.log("test", participantArray);
+      return (joinedMoneyCircle = participantArray[0].find(
+        (el) => el === userId
+      ));
+    } else {
+      return;
+    }
+
+    
+  };
+
+  getAllParticipants();
+
+
+  // let joinedMoneyCircle = moneyCircle.find((el) => (el.participants.map((el) => el)) === userId);
+  // console.log(participantArray)
 
   // render all the money circles
   const moneyCircleList = () => {
@@ -145,7 +188,13 @@ export default function UserAccount() {
               {` as a monthly settlement and the available places are [${el.remainingPlaces}]`}
             </p>
             {userId === el.creator ? (
-              <p className="alreadyJoined-text">Already Joined</p>
+              <p className="alreadyJoined-text">
+                You have created this money Circle
+              </p>
+            ) : joinedMoneyCircle === userId ? (
+              <p className="alreadyJoined-text">
+                You have joined!
+              </p>
             ) : (
               <Button
                 className="button_style"

@@ -16,6 +16,7 @@ function NavBar() {
     getUser();
   }, []);
 
+  // login button change 
   const isLoggedIn = () => {
     if (token === "null" || token === null) {
       setLogButton("Login");
@@ -23,6 +24,8 @@ function NavBar() {
       setLogButton("Logout");
     }
   };
+
+  // get user from token and set his/her name
   const getUser = () => {
     if (token === "null" || token === null) {
       return;
@@ -32,6 +35,7 @@ function NavBar() {
     }
   };
 
+  // logout functionally 
   const loginOrOut = () => {
     if (token === "null" || token === null) {
       navigate("/login");

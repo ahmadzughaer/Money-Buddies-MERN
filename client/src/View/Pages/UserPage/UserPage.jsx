@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button, InputLabel, MenuItem, Select, TextField } from "@mui/material";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import { makeStyles } from "@mui/styles";
@@ -8,7 +8,7 @@ import "./UserPage.style.css";
 import jwt_decode from "jwt-decode";
 import NavBar from "../../Components/NavBar/NavBar.component";
 import swal from "sweetalert";
-import JoiningBox from "../../Components/JoiningBox/JoiningBox";
+
 const axios = require("axios");
 
 export default function UserAccount() {
@@ -38,10 +38,10 @@ export default function UserAccount() {
   const onRoleChange = (e) => setRole(e.target.value);
   let monthlySettlement = Math.ceil(amount / period);
   const [moneyCircle, setMoneyCircle] = useState([]);
-  const [show, setShow] = useState(false);
-  const [circleId, setCircleId] = useState("");
+  // const [circleId, setCircleId] = useState(""); related to participants array
+  const [joinBtn, setJoinBtn] = useState(false);
   let remainingPlaces = [];
-  let remainingPlacesArray, joinedMoneyCircle;
+  let remainingPlacesArray;
 
   const classes = useStyles();
   let token = localStorage.getItem("token");
@@ -53,15 +53,6 @@ export default function UserAccount() {
     getAllMoneyCircles();
     monthlySettlementSetter();
   }, []);
-
-  // open Modal box
-  const showModal = () => {
-    setShow(true);
-  };
-  // close Modal box
-  const hideModal = () => {
-    setShow(false);
-  };
 
   // get user data from the token
   const getUser = () => {
@@ -88,7 +79,6 @@ export default function UserAccount() {
           text: res.data.title,
           icon: "success",
         });
-        // navigate("/user");
         setTimeout((window.location = "/user"), 3000);
       })
       .catch((err) => {
@@ -102,29 +92,30 @@ export default function UserAccount() {
 
   // update money circle participants
 
-  const updateMoneyCircleParticipants = (moneyCircleId, participantId) => {
-    if (moneyCircleId === circleId) {
-      axios
-        .post("http://localhost:8000/user/moneycircle", {
-          participants: participantId,
-          moneyCircleId: moneyCircleId,
-        })
-        .then((res) => {
-          swal({
-            text: res.data.title,
-            icon: "success",
-          });
-          setTimeout((window.location = "/user"), 3000);
-        })
-        .catch((err) => {
-          swal({
-            text: err.response.data.errorMessage,
-            icon: "error",
-          });
-          console.log(err);
-        });
-    }
-  };
+  // const updateMoneyCircleParticipants = (moneyCircleId, participantId) => {
+  //   if (moneyCircleId === circleId) {
+  //     axios
+  //       .post("http://localhost:8000/user/moneycircle", {
+  //         participants: participantId,
+  //         moneyCircleId: moneyCircleId,
+  //       })
+  //       .then((res) => {
+  //         swal({
+  //           text: res.data.title,
+  //           icon: "success",
+  //         });
+  //         setTimeout((window.location = "/user"), 3000);
+  //       })
+  //       .catch((err) => {
+  //         swal({
+  //           text: err.response.data.errorMessage,
+  //           icon: "error",
+  //         });
+  //         console.log(err);
+  //       });
+  //   }
+  // };  // needs to be fixed
+
   // generate roles array
   const roleSelection = () => {
     const rolesArray = [];
@@ -150,31 +141,30 @@ export default function UserAccount() {
   createRemainingPlacesArray();
 
   // on click on Join button
-  const handleClick = (e) => {
-    setCircleId(e.target.dataset.set);
-    // showModal();
-    updateMoneyCircleParticipants(circleId, userId);
+  // const handleClick = (e) => {
+  //   setCircleId(e.target.dataset.set);
+  //   updateMoneyCircleParticipants(circleId, userId);
+  // }; need to be fixed
+
+  // const getAllParticipants = () => {
+  //   if (moneyCircle.length > 0) {
+  //     const participantArray = moneyCircle.map((el) => el.participants);
+  //     return (joinedMoneyCircle = participantArray[0].find(
+  //       (el) => el === userId
+  //     ));
+  //   } else {
+  //     return;
+  //   }
+  // };
+  // getAllParticipants(); needs to be fixed
+
+  const handleClick = () => {
+    setJoinBtn(true);
+    swal({
+      text: "Joined successfully",
+      icon: "success",
+    });
   };
-
-  const getAllParticipants = () => {
-    if (moneyCircle.length > 0) {
-      const participantArray = moneyCircle.map((el) => el.participants);
-      console.log("test", participantArray);
-      return (joinedMoneyCircle = participantArray[0].find(
-        (el) => el === userId
-      ));
-    } else {
-      return;
-    }
-
-    
-  };
-
-  getAllParticipants();
-
-
-  // let joinedMoneyCircle = moneyCircle.find((el) => (el.participants.map((el) => el)) === userId);
-  // console.log(participantArray)
 
   // render all the money circles
   const moneyCircleList = () => {
@@ -191,10 +181,8 @@ export default function UserAccount() {
               <p className="alreadyJoined-text">
                 You have created this money Circle
               </p>
-            ) : joinedMoneyCircle === userId ? (
-              <p className="alreadyJoined-text">
-                You have joined!
-              </p>
+            ) : joinBtn ? (
+              <p className="alreadyJoined-text">Joined</p>
             ) : (
               <Button
                 className="button_style"
@@ -202,7 +190,7 @@ export default function UserAccount() {
                 color="primary"
                 size="small"
                 data-set={el._id}
-                onClick={(e) => handleClick(e)}
+                onClick={handleClick}
               >
                 Join
               </Button>
@@ -341,10 +329,7 @@ export default function UserAccount() {
             )}
             <div className="moneyCircle-section">
               <h1>Join money circle</h1>
-              <div className="moneyCircles-list">
-                {moneyCircleList()}
-                <JoiningBox show={show} handleClose={hideModal}></JoiningBox>
-              </div>
+              <div className="moneyCircles-list">{moneyCircleList()}</div>
             </div>
           </div>
         </div>

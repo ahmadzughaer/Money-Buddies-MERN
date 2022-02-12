@@ -14,6 +14,7 @@
   background-color: #28445b;
   color: #fff;
   padding: 0 1% 0 1%;
+  border-radius: 15px;
 }
 
 .user-account {
@@ -102,11 +103,12 @@
   width: 50%;
   border-right: 3px solid #28445b;
   text-align: center;
+  background: #28445b;
 }
 
 .already-create-moneyCircle > h1 {
   position: relative;
-  top: 10%;
+  top: 20%;
   margin: 5%;
 }
 

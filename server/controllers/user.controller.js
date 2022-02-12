@@ -130,49 +130,57 @@ function checkUserAndGenerateToken(data, req, res) {
 
 module.exports.createMoneyCircle = (req, res) => {
   try {
-    newMoneyCircle = new MoneyCircle({
-      creator: req.body.creator,
-      amount: req.body.amount,
-      participants: [],
-      period: req.body.period,
-      monthlySettlement: req.body.monthlySettlement,
-      role: req.body.role,
-      remainingPlaces: req.body.remainingPlaces
-    });
+    if (req.body && req.body.amount && req.body.period) {
+      newMoneyCircle = new MoneyCircle({
+        creator: req.body.creator,
+        amount: req.body.amount,
+        participants: [],
+        period: req.body.period,
+        monthlySettlement: req.body.monthlySettlement,
+        role: req.body.role,
+        remainingPlaces: req.body.remainingPlaces
+      });
 
-    newMoneyCircle.save((err, newMoneyCircle) => {
-      if (err) {
-        console.log(err)
-        res.status(400).json({
-          errorMessage: err,
-          status: false
-        });
+      newMoneyCircle.save((err, newMoneyCircle) => {
+        if (err) {
+          console.log(err)
+          res.status(400).json({
+            errorMessage: err,
+            status: false
+          });
 
-      }
+        }
 
-      else {
-        console.log('success')
-        User.findOne({ _id: newMoneyCircle.creator }, (err, data) => {
+        else {
+          console.log('success')
+          User.findOne({ _id: newMoneyCircle.creator }, (err, data) => {
 
-          data.moneyCircles = newMoneyCircle._id
-          data.save((user, err) => {
-            if (err) {
+            data.moneyCircles = newMoneyCircle._id
+            data.save((user, err) => {
+              if (err) {
 
-              console.log(err)
-            }
-            else {
+                console.log(err)
+              }
+              else {
 
-              console.log('success')
-            }
+                console.log('success')
+              }
+            })
           })
-        })
-        res.status(200).json({
-          status: true,
-          title: 'Created Successfully.',
-        });
-      }
-    })
+          res.status(200).json({
+            status: true,
+            title: 'Created Successfully.',
+          });
 
+        }
+      })
+    }
+    else {
+      res.status(400).json({
+        errorMessage: 'All fields are required',
+        status: false
+      });
+    }
   }
   catch (e) {
     console.log(e)
@@ -186,51 +194,37 @@ module.exports.createMoneyCircle = (req, res) => {
 
 
 
-module.exports.addParticipants = (req, res) => {
-  try {
+// module.exports.addParticipants = (req, res) => {
+//   try {
 
-    //  const updatedMoneyCircle =  MoneyCircle.updateOne( 
-    //     { _id: req.body.moneyCircleId  }, 
-    //     { $push: { participants: req.body.participants } },
+//     MoneyCircle.findOne({ _id: req.body.moneyCircleId }, async (err, data) => {
+//       let id = req.body.participants
+//       let array = data.participants
+//       array.push(id)
+//       await data.save((user, err) => {
+//         if (err) {
+//           console.log(err)
+//         }
+//         else {
+//           console.log('success')
+//         }
+//       })
+//       res.status(200).json({
+//         status: true,
+//         title: 'Joined Successfully.',
+//       });
+//     })
+//     console.log('yes')
+//   }
+//   catch (e) {
+//     res.status(400).json({
+//       errorMessage: 'Something went wrong!',
+//       status: false
+//     });
+//   }
 
-    //   );
+// } needs to be fixed 
 
-    //    updatedMoneyCircle.save((user, err) => {
-    //         if (err) {
-    //           console.log(err)
-    //         }
-    //         else {
-    //           console.log('success')
-    //         }
-    //       })
-
-    MoneyCircle.findOne({ _id: req.body.moneyCircleId }, async (err, data) => {
-      let id = req.body.participants
-      let array = data.participants
-      array.push(id)
-      await data.save((user, err) => {
-        if (err) {
-          console.log(err)
-        }
-        else {
-          console.log('success')
-        }
-      })
-      res.status(200).json({
-        status: true,
-        title: 'Joined Successfully.',
-      });
-    })
-    console.log('yes')
-  }
-  catch (e) {
-    res.status(400).json({
-      errorMessage: 'Something went wrong!',
-      status: false
-    });
-  }
-
-}
 module.exports.getMoneyCircleById = (req, res) => {
   MoneyCircle.findById({ _id: newMoneyCircle.creator })
     .then(allCircles => res.json(allCircles))

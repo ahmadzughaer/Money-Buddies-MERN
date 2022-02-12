@@ -1,6 +1,5 @@
 const User = require("../model/userModel");
 const MoneyCircle = require("../model/moneyCircleModel");
-
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken');
 let newMoneyCircle
@@ -110,7 +109,7 @@ module.exports.login = (req, res) => {
 }
 
 function checkUserAndGenerateToken(data, req, res) {
-  jwt.sign({ user: data.fullname, email: data.email, id: data._id, moneyCircles: data.moneyCircles }, 'secret', { expiresIn: '1d' }, (err, token,) => {
+  jwt.sign({ user: data.fullname, email: data.email, id: data._id, moneyCircles: data.moneyCircles }, process.env.JWT_SECRET, { expiresIn: '1d' }, (err, token,) => {
     if (err) {
       res.status(400).json({
         status: false,

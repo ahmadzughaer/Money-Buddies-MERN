@@ -1,5 +1,4 @@
 {
-  "proxy": "http://localhost:8000",
   "name": "client",
   "version": "0.1.0",
   "private": true,
@@ -49,14 +48,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "scripts": {
-
-    "start": "node ../server/server.js",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install npm && run build"
-},
-
-"engines": {
-    "node": "10.16.0"
-}
+  }
 }

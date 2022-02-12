@@ -1,0 +1,21 @@
+{
+  "name": "money-buddies",
+  "version": "1.0.0",
+  "description": "Any user with an active bank account and monthly income can register to the app, the first service will be money circles which means the user can create a money circle (kind of personal loans ) and other qualified users could join this circle.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ahmadzughaer/Money-Buddies-MERN.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ahmadzughaer/Money-Buddies-MERN/issues"
+  },
+  "homepage": "https://github.com/ahmadzughaer/Money-Buddies-MERN#readme"
+}

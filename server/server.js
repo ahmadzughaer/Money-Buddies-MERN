@@ -4,9 +4,11 @@ const app = express();
 require("dotenv").config();
 require('./config/mongoose.config');
 
-const { env } = process;
-const { PORT, NODE_ENV } = env;
+// const { env } = process;
+// const { PORT, NODE_ENV } = env;
 const path = require('path');
+const NODE_ENV = process.env.NODE_ENV;
+const PORT = process.env.PORT || 8000
 
 
 

@@ -51,7 +51,7 @@ function NavBar() {
         <img className="Logo" src={logo} alt="logo"></img>
       </Link>
       <div className="user-links">
-        <Link className="NavBarLink" to={"/user"}>
+        <Link className="NavBarLink" to={"/users"}>
           {userName}
         </Link>
         <Button

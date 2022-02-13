@@ -48,7 +48,7 @@ export default function UserAccount() {
 
   useEffect(() => {
     token = localStorage.getItem("token");
-    navigate("/user");
+    navigate("/users");
     getUser();
     getAllMoneyCircles();
     monthlySettlementSetter();
@@ -79,7 +79,7 @@ export default function UserAccount() {
           text: res.data.title,
           icon: "success",
         });
-        setTimeout((window.location = "/user"), 3000);
+        setTimeout((window.location = "/users"), 3000);
       })
       .catch((err) => {
         swal({

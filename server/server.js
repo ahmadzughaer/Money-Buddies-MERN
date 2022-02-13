@@ -7,7 +7,7 @@ require('./config/mongoose.config');
 
 const path = require('path');
 const NODE_ENV = process.env.NODE_ENV;
-const PORT = process.env.PORT || 8000
+const PORT = process.env.PORT 
 
 
 

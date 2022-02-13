@@ -8,7 +8,7 @@ import logo from "../../Assets/images/logo.png";
 import { useNavigate } from "react-router-dom";
 const axios = require("axios");
 const bcrypt = require("bcryptjs");
-var salt = bcrypt.genSaltSync(10);
+
 
 export default function Login() {
   let navigate = useNavigate();

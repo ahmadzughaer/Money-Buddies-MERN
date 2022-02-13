@@ -20,7 +20,7 @@ export default function Register() {
   const onPasswordChange = (e) => setPassword(e.target.value);
 
    const register = () => {
-    axios.post('/register', {
+    axios.post('https://money-buddies.herokuapp.com/register', {
       fullname: fullname,
       email: email,
       dateOfBirth: dateOfBirth,

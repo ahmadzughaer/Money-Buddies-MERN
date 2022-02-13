@@ -19,7 +19,7 @@ export default function Login() {
   const login = () => {
 
     axios
-      .post("/login", {
+      .post("https://money-buddies.herokuapp.com/login", {
         email: email,
         password: password,
       })

@@ -66,7 +66,7 @@ export default function UserAccount() {
   // add money circle to database
   const createMoneyCircle = () => {
     axios
-      .post("http://localhost:8000/user", {
+      .post("/user", {
         creator: userId,
         amount: amount,
         period: period,
@@ -221,7 +221,7 @@ export default function UserAccount() {
   // get all the money circles from database
   const getAllMoneyCircles = () => {
     axios
-      .get("http://localhost:8000/user")
+      .get("/user")
       .then((res) => setMoneyCircle(res.data))
       .catch((error) => console.log("There was an issue: ", error));
   };

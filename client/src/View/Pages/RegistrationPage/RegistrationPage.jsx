@@ -20,7 +20,7 @@ export default function Register() {
   const onPasswordChange = (e) => setPassword(e.target.value);
 
    const register = () => {
-    axios.post('http://localhost:8000/register', {
+    axios.post('/register', {
       fullname: fullname,
       email: email,
       dateOfBirth: dateOfBirth,

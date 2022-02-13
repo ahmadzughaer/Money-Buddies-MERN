@@ -61,9 +61,11 @@
 
 .balloon {
   padding-top: 30px;
-  margin-left: 15%;
+  left: 30%;
   position: relative;
   cursor: pointer;
+  transform: skew(-20deg);
+
 }
 
 .balloon > div:before {
@@ -328,13 +330,13 @@ span {
     font-size: small;
   }
   .balloon {
-    padding-top: 10px;
-    margin-left: 1%;
+    padding-top: 5px;
+    font-size: .8em;
   }
   .card-1 {
-    margin-top: 65%;  
+    margin-top: 65%;
   }
-  
+
   .Box-2 {
     position: relative;
     top: 10%;
@@ -351,7 +353,7 @@ span {
   }
 
   .card-2 {
-    margin-top: 35%;  
+    margin-top: 35%;
   }
   .business-image {
     width: 90%;
@@ -359,6 +361,16 @@ span {
     position: relative;
     left: 10%;
   }
-  
 
+  .arrows {
+    margin-top: 12%;
+  }
+
+  
+.balloon > div {
+
+  width: 70px;
+  height: 100px;
+
+}
 }

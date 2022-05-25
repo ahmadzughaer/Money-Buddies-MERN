@@ -33,12 +33,12 @@ export default function UserAccount() {
   const [amount, setAmount] = useState("");
   const [period, setPeriod] = useState("");
   const [role, setRole] = useState("");
+  const [circleId, setCircleId] = useState("")
   const onAmountChange = (e) => setAmount(e.target.value);
   const onPeriodChange = (e) => setPeriod(e.target.value);
   const onRoleChange = (e) => setRole(e.target.value);
   let monthlySettlement = Math.ceil(amount / period);
   const [moneyCircle, setMoneyCircle] = useState([]);
-  // const [circleId, setCircleId] = useState(""); related to participants array
   const [joinBtn, setJoinBtn] = useState(false);
   let remainingPlaces = [];
   let remainingPlacesArray;
@@ -92,29 +92,29 @@ export default function UserAccount() {
 
   // update money circle participants
 
-  // const updateMoneyCircleParticipants = (moneyCircleId, participantId) => {
-  //   if (moneyCircleId === circleId) {
-  //     axios
-  //       .post("http://localhost:8000/user/moneycircle", {
-  //         participants: participantId,
-  //         moneyCircleId: moneyCircleId,
-  //       })
-  //       .then((res) => {
-  //         swal({
-  //           text: res.data.title,
-  //           icon: "success",
-  //         });
-  //         setTimeout((window.location = "/user"), 3000);
-  //       })
-  //       .catch((err) => {
-  //         swal({
-  //           text: err.response.data.errorMessage,
-  //           icon: "error",
-  //         });
-  //         console.log(err);
-  //       });
-  //   }
-  // };  // needs to be fixed
+  const updateMoneyCircleParticipants = (moneyCircleId, participantId) => {
+    if (moneyCircleId === circleId) {
+      axios
+        .post("http://localhost:8000/user/moneycircle", {
+          participants: participantId,
+          moneyCircleId: moneyCircleId,
+        })
+        .then((res) => {
+          swal({
+            text: res.data.title,
+            icon: "success",
+          });
+          setTimeout((window.location = "/user"), 3000);
+        })
+        .catch((err) => {
+          swal({
+            text: err.response.data.errorMessage,
+            icon: "error",
+          });
+          console.log(err);
+        });
+    }
+  }; // needs to be fixed
 
   // generate roles array
   const roleSelection = () => {
@@ -141,30 +141,31 @@ export default function UserAccount() {
   createRemainingPlacesArray();
 
   // on click on Join button
-  // const handleClick = (e) => {
-  //   setCircleId(e.target.dataset.set);
-  //   updateMoneyCircleParticipants(circleId, userId);
-  // }; need to be fixed
-
-  // const getAllParticipants = () => {
-  //   if (moneyCircle.length > 0) {
-  //     const participantArray = moneyCircle.map((el) => el.participants);
-  //     return (joinedMoneyCircle = participantArray[0].find(
-  //       (el) => el === userId
-  //     ));
-  //   } else {
-  //     return;
-  //   }
-  // };
-  // getAllParticipants(); needs to be fixed
-
-  const handleClick = () => {
-    setJoinBtn(true);
-    swal({
-      text: "Joined successfully",
-      icon: "success",
-    });
+  const handleClick = (e) => {
+    setCircleId(e.target.dataset.set);
+    updateMoneyCircleParticipants(circleId, userId);
   };
+
+  const getAllParticipants = () => {
+    if (moneyCircle.length > 0) {
+      let joinedMoneyCircle
+      const participantArray = moneyCircle.map((el) => el.participants);
+      return (joinedMoneyCircle = participantArray[0].find(
+        (el) => el === userId
+      ));
+    } else {
+      return;
+    }
+  };
+  getAllParticipants();
+
+  // const handleClick = () => {
+  //   setJoinBtn(true);
+  //   swal({
+  //     text: "Joined successfully",
+  //     icon: "success",
+  //   });
+  // };
 
   // render all the money circles
   const moneyCircleList = () => {

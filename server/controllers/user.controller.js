@@ -157,11 +157,9 @@ module.exports.createMoneyCircle = (req, res) => {
             data.moneyCircles = newMoneyCircle._id
             data.save((user, err) => {
               if (err) {
-
                 console.log(err)
               }
               else {
-
                 console.log('success')
               }
             })
@@ -193,36 +191,23 @@ module.exports.createMoneyCircle = (req, res) => {
 
 
 
-// module.exports.addParticipants = (req, res) => {
-//   try {
+module.exports.addParticipants = async (req, res) => {
+  try {
 
-//     MoneyCircle.findOne({ _id: req.body.moneyCircleId }, async (err, data) => {
-//       let id = req.body.participants
-//       let array = data.participants
-//       array.push(id)
-//       await data.save((user, err) => {
-//         if (err) {
-//           console.log(err)
-//         }
-//         else {
-//           console.log('success')
-//         }
-//       })
-//       res.status(200).json({
-//         status: true,
-//         title: 'Joined Successfully.',
-//       });
-//     })
-//     console.log('yes')
-//   }
-//   catch (e) {
-//     res.status(400).json({
-//       errorMessage: 'Something went wrong!',
-//       status: false
-//     });
-//   }
+    await MoneyCircle.findOneAndUpdate({ _id: req.body.moneyCircleId }, {
+      $push: {
+        participants: 'test'
+      }
+    })
+  }
+  catch (e) {
+    res.status(400).json({
+      errorMessage: 'Something went wrong!',
+      status: false
+    });
+  }
 
-// } needs to be fixed 
+}
 
 module.exports.getMoneyCircleById = (req, res) => {
   MoneyCircle.findById({ _id: newMoneyCircle.creator })

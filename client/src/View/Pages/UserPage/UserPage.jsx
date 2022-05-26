@@ -143,6 +143,7 @@ export default function UserAccount() {
   // on click on Join button
   const handleClick = (e) => {
     setCircleId(e.target.dataset.set);
+    console.log(userId)
     updateMoneyCircleParticipants(circleId, userId);
   };
 

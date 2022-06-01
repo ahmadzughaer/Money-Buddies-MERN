@@ -143,7 +143,11 @@ export default function UserAccount() {
   // on click on Join button
   const handleClick = (e) => {
     setCircleId(e.target.dataset.set);
-    console.log(userId)
+    setJoinBtn(true);
+    swal({
+      text: "Joined successfully",
+      icon: "success",
+    });
     updateMoneyCircleParticipants(circleId, userId);
   };
 
@@ -158,16 +162,9 @@ export default function UserAccount() {
       return;
     }
   };
-  getAllParticipants();
+  getAllParticipants()
 
-  // const handleClick = () => {
-  //   setJoinBtn(true);
-  //   swal({
-  //     text: "Joined successfully",
-  //     icon: "success",
-  //   });
-  // };
-
+ 
   // render all the money circles
   const moneyCircleList = () => {
     if (moneyCircle.length > 0) {

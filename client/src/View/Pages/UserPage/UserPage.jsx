@@ -52,6 +52,7 @@ export default function UserAccount() {
     getUser();
     getAllMoneyCircles();
     monthlySettlementSetter();
+    checkParticipants()
   }, []);
 
   // get user data from the token
@@ -143,7 +144,6 @@ export default function UserAccount() {
   // on click on Join button
   const handleClick = (e) => {
     setCircleId(e.target.dataset.set);
-    setJoinBtn(true);
     swal({
       text: "Joined successfully",
       icon: "success",
@@ -151,18 +151,27 @@ export default function UserAccount() {
     updateMoneyCircleParticipants(circleId, userId);
   };
 
-  const getAllParticipants = () => {
-    if (moneyCircle.length > 0) {
-      let joinedMoneyCircle
-      const participantArray = moneyCircle.map((el) => el.participants);
-      return (joinedMoneyCircle = participantArray[0].find(
-        (el) => el === userId
-      ));
+  const checkParticipants = () => {
+    let checkedPar = moneyCircle.find(el => el === 'test11')
+    if (checkedPar){
+      setJoinBtn(false)
     } else {
-      return;
+      setJoinBtn(true)
     }
-  };
-  getAllParticipants()
+  }
+
+  // const getAllParticipants = () => {
+  //   if (moneyCircle.length > 0) {
+  //     let joinedMoneyCircle
+  //     const participantArray = moneyCircle.map((el) => el.participants);
+  //     return (joinedMoneyCircle = participantArray[0].find(
+  //       (el) => el === userId
+  //     ));
+  //   } else {
+  //     return;
+  //   }
+  // };
+  // getAllParticipants()
 
  
   // render all the money circles

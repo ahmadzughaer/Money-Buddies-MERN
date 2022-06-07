@@ -193,10 +193,10 @@ module.exports.createMoneyCircle = (req, res) => {
 
 module.exports.addParticipants = async (req, res) => {
   try {
-
+    console.log(req.body)
     await MoneyCircle.findOneAndUpdate({ _id: req.body.moneyCircleId }, {
       $push: {
-        participants: 'test11'
+        participants: req.body.userId
       }
     })
   }

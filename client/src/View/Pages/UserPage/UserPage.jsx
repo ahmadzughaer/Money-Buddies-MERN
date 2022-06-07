@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { Button, InputLabel, MenuItem, Select, TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -33,7 +33,7 @@ export default function UserAccount() {
   const [amount, setAmount] = useState("");
   const [period, setPeriod] = useState("");
   const [role, setRole] = useState("");
-  const [circleId, setCircleId] = useState("")
+  const [circleId, setCircleId] = useState("");
   const onAmountChange = (e) => setAmount(e.target.value);
   const onPeriodChange = (e) => setPeriod(e.target.value);
   const onRoleChange = (e) => setRole(e.target.value);
@@ -46,23 +46,46 @@ export default function UserAccount() {
   const classes = useStyles();
   let token = localStorage.getItem("token");
 
-  useEffect(() => {
-    token = localStorage.getItem("token");
-    navigate("/users");
-    getUser();
-    getAllMoneyCircles();
-    monthlySettlementSetter();
-    checkParticipants()
-  }, []);
-
   // get user data from the token
-  const getUser = () => {
-    token = localStorage.getItem("token");
+  const getUser = useCallback(() => {
     const decodedToken = jwt_decode(token);
     setUserName(decodedToken.user);
     setUserId(decodedToken.id);
     setUserMoneyCircle(decodedToken.moneyCircles);
-  };
+  }, [token]);
+
+  const monthlySettlementSetter = useCallback(() => {
+    if (isNaN(monthlySettlement)) {
+      return true;
+    } else {
+      return false;
+    }
+  }, [monthlySettlement])
+
+  const checkParticipants = useCallback(() => {
+    let checkedPar = moneyCircle.find((el) => el === userId);
+    if (checkedPar) {
+      setJoinBtn(false);
+    } else {
+      setJoinBtn(true);
+    }
+  }, [moneyCircle, userId]);
+
+   // get all the money circles from database
+   const getAllMoneyCircles = useCallback(() => {
+    axios
+      .get("http://localhost:8000/user")
+      .then((res) => setMoneyCircle(res.data))
+      .catch((error) => console.log("There was an issue: ", error));
+  }, []);
+
+  useEffect(() => {
+    navigate("/users");
+    getUser();
+    // getAllMoneyCircles(); TODO: fix infinite render 
+    monthlySettlementSetter();
+    checkParticipants(); 
+  }, [ monthlySettlementSetter, getUser, checkParticipants, navigate]);
 
   // add money circle to database
   const createMoneyCircle = () => {
@@ -80,7 +103,7 @@ export default function UserAccount() {
           text: res.data.title,
           icon: "success",
         });
-        setTimeout((window.location = "/users"), 3000);
+        setTimeout(() => (window.location = "/users"), 3000);
       })
       .catch((err) => {
         swal({
@@ -97,7 +120,7 @@ export default function UserAccount() {
     if (moneyCircleId === circleId) {
       axios
         .post("http://localhost:8000/user/moneycircle", {
-          participants: participantId,
+          userId: participantId,
           moneyCircleId: moneyCircleId,
         })
         .then((res) => {
@@ -105,7 +128,7 @@ export default function UserAccount() {
             text: res.data.title,
             icon: "success",
           });
-          setTimeout((window.location = "/user"), 3000);
+          setTimeout(() => (window.location = "/users"), 3000);
         })
         .catch((err) => {
           swal({
@@ -142,23 +165,15 @@ export default function UserAccount() {
   createRemainingPlacesArray();
 
   // on click on Join button
+  console.log('@@@@@@@@')
   const handleClick = (e) => {
     setCircleId(e.target.dataset.set);
     swal({
       text: "Joined successfully",
       icon: "success",
     });
-    updateMoneyCircleParticipants(circleId, userId);
+    updateMoneyCircleParticipants(e.target.dataset.set, userId);
   };
-
-  const checkParticipants = () => {
-    let checkedPar = moneyCircle.find(el => el === 'test11')
-    if (checkedPar){
-      setJoinBtn(false)
-    } else {
-      setJoinBtn(true)
-    }
-  }
 
   // const getAllParticipants = () => {
   //   if (moneyCircle.length > 0) {
@@ -173,7 +188,6 @@ export default function UserAccount() {
   // };
   // getAllParticipants()
 
- 
   // render all the money circles
   const moneyCircleList = () => {
     if (moneyCircle.length > 0) {
@@ -218,130 +232,116 @@ export default function UserAccount() {
     }
   };
 
-  function monthlySettlementSetter() {
-    if (monthlySettlement === NaN) {
-      return true;
-    } else {
-      return false;
-    }
-  }
+ 
 
-  // get all the money circles from database
-  const getAllMoneyCircles = () => {
-    axios
-      .get("https://money-buddies.herokuapp.com/user")
-      .then((res) => setMoneyCircle(res.data))
-      .catch((error) => console.log("There was an issue: ", error));
-  };
+ 
 
-  {
-    return (
-      <div>
-        <NavBar />
+  return (
+    <div>
+      <NavBar />
 
-        <div className="account-main">
-          <div className="Greeting">
-            <h1>{`Welcome ${userName}`}</h1>
-          </div>
-          <div className="user-account">
-            {userMoneyCircle.length < 1 ? (
-              <div className="create-moneyCircle">
-                <h1>Create your money circle</h1>
+      <div className="account-main">
+        <div className="Greeting">
+          <h1>{`Welcome ${userName}`}</h1>
+        </div>
+        <div className="user-account">
+          {userMoneyCircle.length < 1 ? (
+            <div className="create-moneyCircle">
+              <h1>Create your money circle</h1>
 
+              <TextField
+                id="standard-basic"
+                type="text"
+                autoComplete="off"
+                className={classes.input}
+                name="amount"
+                value={amount}
+                onChange={onAmountChange}
+                placeholder="Amount"
+                required
+              />
+              <br />
+              <br />
+              <TextField
+                id="standard-basic"
+                type="text"
+                autoComplete="off"
+                name="period"
+                className={classes.input}
+                value={period}
+                onChange={onPeriodChange}
+                placeholder="Period in months"
+                required
+              />
+              <br />
+              <br />
+              {isNaN(monthlySettlement) ? (
                 <TextField
+                  className={classes.input3}
                   id="standard-basic"
                   type="text"
                   autoComplete="off"
-                  className={classes.input}
-                  name="amount"
-                  value={amount}
-                  onChange={onAmountChange}
-                  placeholder="Amount"
+                  name="monthlySettlement"
+                  value="Monthly settlement"
+                  placeholder="Monthly settlement"
                   required
                 />
-                <br />
-                <br />
+              ) : (
                 <TextField
+                  className={classes.input3}
                   id="standard-basic"
                   type="text"
                   autoComplete="off"
-                  name="period"
-                  className={classes.input}
-                  value={period}
-                  onChange={onPeriodChange}
-                  placeholder="Period in months"
+                  name="monthlySettlement"
+                  value={monthlySettlement}
+                  placeholder="Monthly settlement"
                   required
                 />
-                <br />
-                <br />
-                {isNaN(monthlySettlement) ? (
-                  <TextField
-                    className={classes.input3}
-                    id="standard-basic"
-                    type="text"
-                    autoComplete="off"
-                    name="monthlySettlement"
-                    value="Monthly settlement"
-                    placeholder="Monthly settlement"
-                    required
-                  />
-                ) : (
-                  <TextField
-                    className={classes.input3}
-                    id="standard-basic"
-                    type="text"
-                    autoComplete="off"
-                    name="monthlySettlement"
-                    value={monthlySettlement}
-                    placeholder="Monthly settlement"
-                    required
-                  />
-                )}
-                <br />
-                <br />
-                <div className="roles-box">
-                  <InputLabel
-                    className="input-label"
-                    id="demo-simple-select-helper-label"
-                  >
-                    Role
-                  </InputLabel>
-                  <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={role}
-                    label="Role"
-                    onChange={onRoleChange}
-                  >
-                    {roleSelection()}
-                  </Select>
-                </div>
-                <br />
-                <Button
-                  className="button_style"
-                  variant="contained"
-                  color="primary"
-                  size="small"
-                  onClick={createMoneyCircle}
+              )}
+              <br />
+              <br />
+              <div className="roles-box">
+                <InputLabel
+                  className="input-label"
+                  id="demo-simple-select-helper-label"
                 >
-                  Create Money Circle
-                </Button>
+                  Role
+                </InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={role}
+                  label="Role"
+                  onChange={onRoleChange}
+                >
+                  {roleSelection()}
+                </Select>
               </div>
-            ) : (
-              <div className="already-create-moneyCircle">
-                <h1>
-                  You can only create one money circle, you can join another
-                  money circle or wait until this to end
-                </h1>
-              </div>
-            )}
-            <div className="moneyCircle-section">
-              <h1>Join money circle</h1>
-              <div className="moneyCircles-list">{moneyCircleList()}</div>
+              <br />
+              <Button
+                className="button_style"
+                variant="contained"
+                color="primary"
+                size="small"
+                onClick={createMoneyCircle}
+              >
+                Create Money Circle
+              </Button>
             </div>
+          ) : (
+            <div className="already-create-moneyCircle">
+              <h1>
+                You can only create one money circle, you can join another money
+                circle or wait until this to end
+              </h1>
+            </div>
+          )}
+          <div className="moneyCircle-section">
+            <h1>Join money circle</h1>
+            <div className="moneyCircles-list">{moneyCircleList()}</div>
           </div>
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 }
